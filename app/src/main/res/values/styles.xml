@@ -1,0 +1,114 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NavHeaderTVName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Hello, Handsome Man!</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:paddingTop">@dimen/nav_header_vertical_spacing</item>
+    </style>
+
+    <style name="NavHeaderTVEmail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">aryaonong29@gmail.com</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:paddingTop">@dimen/nav_header_vertical_spacing</item>
+    </style>
+
+    <style name="ContentMainTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Hell Yeah!!!</item>
+    </style>
+
+    <!--<style name="HomeTextView">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:text">Welcome Home</item>-->
+        <!--<item name="android:textAlignment">center</item>-->
+        <!--<item name="android:textSize">35sp</item>-->
+        <!--<item name="android:textStyle">bold</item>-->
+        <!--<item name="android:textColor">#212121</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="ProfileTextView1">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:text">Ariana Surya Putra</item>-->
+        <!--<item name="android:textAlignment">center</item>-->
+        <!--<item name="android:textSize">35sp</item>-->
+        <!--<item name="android:textColor">#212121</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:textStyle">italic</item>-->
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="ProfileTextView2">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:text">Android Developer</item>-->
+        <!--<item name="android:textAlignment">center</item>-->
+        <!--<item name="android:textStyle">italic</item>-->
+        <!--<item name="android:textColor">#212121</item>-->
+        <!--<item name="android:textSize">35sp</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:layout_below">@+id/ProfileTextView1</item>-->
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="ContactTextView1">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:text">Jalan Kalijati Antapani</item>-->
+        <!--<item name="android:textAlignment">center</item>-->
+        <!--<item name="android:textSize">35sp</item>-->
+        <!--<item name="android:textColor">#212121</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:textStyle">italic</item>-->
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="ContactTextView2">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:text">Bandung, Indonesia</item>-->
+        <!--<item name="android:textAlignment">center</item>-->
+        <!--<item name="android:textStyle">italic</item>-->
+        <!--<item name="android:textColor">#212121</item>-->
+        <!--<item name="android:textSize">35sp</item>-->
+        <!--<item name="android:gravity">center</item>-->
+        <!--<item name="android:layout_below">@+id/ContactTextView1</item>-->
+        <!--<item name="android:layout_centerHorizontal">true</item>-->
+        <!--<item name="android:layout_centerVertical">true</item>-->
+    <!--</style>-->
+
+</resources>

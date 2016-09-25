@@ -1,9 +1,8 @@
 package com.arianasp.advanceapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Synchronize extends AppCompatActivity {
+public class Synchronize extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

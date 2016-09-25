@@ -1,9 +1,8 @@
 package com.arianasp.advanceapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Transaction extends AppCompatActivity {
+public class Transaction extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

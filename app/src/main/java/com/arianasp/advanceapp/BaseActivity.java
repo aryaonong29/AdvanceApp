@@ -16,7 +16,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected RelativeLayout fullLayout;
     protected FrameLayout frameLayout;
 
-    //    public LinearLayout containerDestacado;
     @Override
     public void setContentView(int layoutResID) {
 

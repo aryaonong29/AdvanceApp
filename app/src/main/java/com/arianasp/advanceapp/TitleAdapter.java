@@ -33,6 +33,7 @@ public class TitleAdapter extends RecyclerView.Adapter<TitleHolder> {
     @Override
     public void onBindViewHolder(TitleHolder titleHolder, int i) {
         TitleCard titleCard = title.get(i);
+
         titleHolder.title.setText(titleCard.getTitle());
     }
 

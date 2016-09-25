@@ -21,7 +21,10 @@
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/stuff" />
+            android:id="@+id/stuff"
+            android:onClick="onClick"
+            android:linksClickable="true"
+            />
 
         <EditText
             android:layout_width="wrap_content"
@@ -31,6 +34,8 @@
             android:ems="10"
             android:id="@+id/price"
             android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:linksClickable="true"
             />
 
     </RelativeLayout>

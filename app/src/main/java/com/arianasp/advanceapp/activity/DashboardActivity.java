@@ -25,7 +25,7 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-
+        // inisialisasi database di sqlite
         final ExpensesDataBaseSQLite db = new ExpensesDataBaseSQLite(this);
         cIncome = db.addIncome();
         cExpenses = db.addExpenses();

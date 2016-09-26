@@ -1,6 +1,8 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.activity;
 
 import android.os.Bundle;
+
+import com.arianasp.advanceapp.R;
 
 public class MainActivity extends BaseActivity {
 

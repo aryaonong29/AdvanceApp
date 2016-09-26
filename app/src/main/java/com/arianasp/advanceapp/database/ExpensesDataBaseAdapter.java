@@ -1,4 +1,4 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;

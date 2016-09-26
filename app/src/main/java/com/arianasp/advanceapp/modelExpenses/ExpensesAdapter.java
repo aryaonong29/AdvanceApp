@@ -1,9 +1,12 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.modelExpenses;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.arianasp.advanceapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,15 @@ import java.util.List;
  */
 
 public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesHolder> {
+    private Fragment mFragment;
+    private List<ExpensesModel> expensesStuff;
 
-    private List<Expenses> expensesStuff;
 
-    public ExpensesAdapter(List<Expenses> expensesStuff){
-        this.expensesStuff = new ArrayList<Expenses>();
+
+    public ExpensesAdapter(List<ExpensesModel> expensesStuff,Fragment fragment){
+        this.expensesStuff = new ArrayList<ExpensesModel>();
         this.expensesStuff.addAll(expensesStuff);
+        this.mFragment = fragment;
     }
 
 
@@ -26,7 +32,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesHolder> {
     public ExpensesHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater
                 .from(viewGroup.getContext())
-                .inflate(R.layout.cardview, viewGroup, false);
+                .inflate(R.layout.fragment_expenses, viewGroup, false);
         return new ExpensesHolder(itemView);
     }
 
@@ -35,6 +41,19 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesHolder> {
         Expenses exp = expensesStuff.get(i);
         expHolder.stuff.setText(exp.getStuf());
         expHolder.price.setText(exp.getPrice());
+        expHolder.v.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mFragment.onItemClicked(position);
+            }
+        });
+        expHolder.v.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                mFragment.onItemLongClicked(position);
+                return true;
+            }
+        });
 
     }
 

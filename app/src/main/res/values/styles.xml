@@ -44,6 +44,16 @@
         <item name="android:text">Hell Yeah!!!</item>
     </style>
 
+    <style name="etStyle01">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="etStyle02">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <!--<style name="HomeTextView">-->
         <!--<item name="android:layout_width">wrap_content</item>-->
         <!--<item name="android:layout_height">wrap_content</item>-->

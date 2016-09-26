@@ -1,8 +1,10 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.activity;
 
 import android.os.Bundle;
 
-public class Synchronize extends BaseActivity {
+import com.arianasp.advanceapp.R;
+
+public class SynchronizeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

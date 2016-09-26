@@ -1,4 +1,4 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.activity;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import com.arianasp.advanceapp.R;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,15 +48,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_dash:
-                Intent dash = new Intent(this, Dashboard.class);
+                Intent dash = new Intent(this, DashboardActivity.class);
                 startActivity(dash);
                 break;
             case R.id.nav_trans:
-                Intent trans = new Intent(this, Transaction.class);
+                Intent trans = new Intent(this, TransactionActivity.class);
                 startActivity(trans);
                 break;
             case R.id.nav_sync:
-                Intent sync = new Intent(this, Synchronize.class);
+                Intent sync = new Intent(this, SynchronizeActivity.class);
                 startActivity(sync);
                 break;
         }

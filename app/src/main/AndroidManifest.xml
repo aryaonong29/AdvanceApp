@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="AdvanceApp"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".Dashboard" />
-        <activity android:name=".Transaction" />
-        <activity android:name=".Synchronize"/>
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.DashboardActivity" />
+        <activity android:name=".activity.TransactionActivity" />
+        <activity android:name=".activity.SynchronizeActivity"/>
     </application>
 
 </manifest>

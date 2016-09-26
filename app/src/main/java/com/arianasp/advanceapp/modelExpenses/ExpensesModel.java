@@ -1,15 +1,15 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.modelExpenses;
 
 /**
  * Created by Ariana on 9/25/2016.
  */
 
-public class Expenses {
+public class ExpensesModel {
 
     protected  String stuf;
     protected  int price;
 
-    public Expenses(String stuf, int price) {
+    public ExpensesModel(String stuf, int price) {
         this.stuf = stuf;
         this.price = price;
     }

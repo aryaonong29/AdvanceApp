@@ -25,16 +25,17 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        // inisialisasi database di sqlite
-        final ExpensesDataBaseSQLite db = new ExpensesDataBaseSQLite(this);
-        cIncome = db.addIncome();
-        cExpenses = db.addExpenses();
+
+        final ExpensesDataBaseSQLite db = new ExpensesDataBaseSQLite(this);// inisialisasi database di sqlite
+        cIncome = db.addIncome();//masukin data ke income
+        cExpenses = db.addExpenses();//masukin data ke expenses
 
         recyclerViewIncome = (RecyclerView) findViewById(R.id.recyclerViewIncome);
         recyclerViewIncome.setHasFixedSize(true);
 
         recyclerViewExpenses = (RecyclerView) findViewById(R.id.recyclerViewExpenses);
-        recyclerViewExpenses.setHasFixedSize(true);
+        recyclerViewExpenses.setHasFixedSize(true);//RecyclerView can perform several optimizations
+        // if it can know in advance that RecyclerView's size is not affected by the adapter contents.
 
         rvLmIncome = new LinearLayoutManager(this);
         rvLmExpenses = new LinearLayoutManager(this);

@@ -1,6 +1,7 @@
 package com.arianasp.advanceapp.activity;
 
 
+import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -107,8 +108,17 @@ public class DashboardActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.tvIncome.setText(dataI[position]);
+
+            holder.tvIncome.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    final Dialog dialog = new Dialog(DashboardActivity.this);
+                    dialog.setContentView(R.layout.dialog_edit);
+                    cIncome.moveToPosition(position);
+                }
+            });
 
             //code utk put dialog
         }

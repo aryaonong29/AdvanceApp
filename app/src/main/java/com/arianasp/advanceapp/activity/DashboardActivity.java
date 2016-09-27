@@ -55,21 +55,21 @@ public class DashboardActivity extends BaseActivity {
         recyclerViewExpenses.setAdapter(rvAdapterExpenses);
 
         int amountIncome = 0;
-        TextView totalI = (TextView) findViewById(R.id.tv_total_I);
+        TextView tvTotalIncome = (TextView) findViewById(R.id.tvTotalIncome);
         while (cIn.moveToNext()) {
             amountIncome += cIn.getInt(cIn.getColumnIndex("AMOUNT"));
         }
-        totalI.setText("Rp. " + String.valueOf(amountIncome));
+        tvTotalIncome.setText("Rp. " + String.valueOf(amountIncome));
 
         int amountExpenses = 0;
-        TextView totalE = (TextView) findViewById(R.id.tv_total_E);
+        TextView tvTotalExpenses = (TextView) findViewById(R.id.tvTotalExpenses);
         while (cExp.moveToNext()) {
             amountExpenses += cExp.getInt(cExp.getColumnIndex("AMOUNT"));
         }
-        totalE.setText("Rp. " + String.valueOf(amountExpenses));
+        tvTotalExpenses.setText("Rp. " + String.valueOf(amountExpenses));
 
-        TextView balance = (TextView) findViewById(R.id.tv_balancetotal);
-        balance.setText("Rp. " + String.valueOf(amountIncome-amountExpenses));
+        TextView balanceTotal = (TextView) findViewById(R.id.tv_balancetotal);
+        balanceTotal.setText("Rp. " + String.valueOf(amountIncome-amountExpenses));
     }
 
     //mthod Cursor interface, that provides random read-write access to the result set returned by a database query.
@@ -109,6 +109,8 @@ public class DashboardActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.tvIncome.setText(dataI[position]);
+
+            //code utk put dialog
         }
 
         @Override

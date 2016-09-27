@@ -8,6 +8,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#00B0FF"
     tools:context="com.arianasp.advanceapp.activity.SynchronizeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:text="Synchronize Page"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="SYNCHRONIZE NOW"/>
 
 </RelativeLayout>

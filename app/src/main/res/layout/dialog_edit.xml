@@ -5,17 +5,23 @@
     android:padding="16dp"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="edit description"/>
+    <android.support.design.widget.TextInputLayout style="@style/etStyle01">
+        <EditText
+            android:id="@+id/edDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit Description"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/edAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="edit amount"/>
+
+
+    <android.support.design.widget.TextInputLayout style="@style/etStyle01">
+        <EditText
+            android:id="@+id/edAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edit Emount"/>
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btnUpdate"
@@ -28,4 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete Data"/>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"/>
 </LinearLayout>

@@ -1,51 +1,221 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_dashboard"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.arianasp.advanceapp.activity.DashboardActivity">
+    android:padding="16dp"
+    tools:context=".activity.DashboardActivity">
 
-    <fragment
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.arianasp.advanceapp.fragment.CardListFragment"
-        android:id="@+id/fragment1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_cardlist" />
+        android:orientation="vertical">
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.arianasp.advanceapp.fragment.CardExpensesFragment"
-        android:id="@+id/fragment2"
-        android:layout_below="@+id/fragment1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_expenses" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.arianasp.advanceapp.fragment.CardIncomeFragment"
-        android:id="@+id/fragment3"
-        android:layout_below="@+id/fragment2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_income" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp">
 
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/cardview_dark_background"
+                    android:text="Overview Income"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewIncome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/tvStyleFooter"
+                            android:text="Total  " />
+
+                        <TextView
+                            android:id="@+id/tv_total_I"
+                            style="@style/tvStyleFooter"
+                            android:text="Rp." />
+                    </TableRow>
+
+                </TableLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/tvStyleFooter"
+                        android:text="Total"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                    <TextView
+                        android:id="@+id/tv_balance2"
+                        style="@style/tvStyleFooter"
+                        android:text="Rp."
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/cardview_dark_background"
+                    android:text="Overview Expenses"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewExpenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/tvStyleFooter"
+                            android:text="Total  " />
+
+                        <TextView
+                            android:id="@+id/tv_total_E"
+                            style="@style/tvStyleFooter"
+                            android:text="Rp." />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvTotalExpenses"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/tvStyleFooter"
+                        android:text="Total"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                    <TextView
+                        android:id="@+id/tv_balanceexp"
+                        style="@style/tvStyleFooter"
+                        android:text="Rp."
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvBalance"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/tvStyleFooter"
+                        android:text="Balance"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                    <TextView
+                        android:id="@+id/tv_balancetotal"
+                        style="@style/tvStyleFooter"
+                        android:text="Rp."
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

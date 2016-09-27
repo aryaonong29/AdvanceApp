@@ -4,8 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.arianasp.advanceapp.fragment.CardExpensesFragment;
-import com.arianasp.advanceapp.fragment.CardIncomeFragment;
+import com.arianasp.advanceapp.CardOverviewFragment;
 
 /**
  * Created by Ariana on 9/26/2016.
@@ -24,10 +23,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                CardExpensesFragment tab1 = new CardExpensesFragment();
+                CardOverviewFragment tab1 = new CardOverviewFragment();
                 return tab1;
             case 1:
-                CardIncomeFragment tab2 = new CardIncomeFragment();
+                CardOverviewFragment tab2 = new CardOverviewFragment();
                 return tab2;
             default:
                 return null;

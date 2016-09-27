@@ -1,49 +1,102 @@
 package com.arianasp.advanceapp.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.arianasp.advanceapp.R;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener  {
 
-    protected RelativeLayout fullLayout;
-    protected FrameLayout frameLayout;
+    private FrameLayout view_stub;
+    private NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private Menu mDrawerMenu;
 
     @Override
-    public void setContentView(int layoutResID) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        super.setContentView(R.layout.activity_base);
 
-        fullLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
-        frameLayout = (FrameLayout) fullLayout.findViewById(R.id.drawer_frame);
+        view_stub = (FrameLayout) findViewById(R.id.view_stub);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, 0, 0);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getLayoutInflater().inflate(layoutResID, frameLayout, true);
-
-        super.setContentView(fullLayout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mDrawerMenu = mNavigationView.getMenu();
+        for(int i = 0; i < mDrawerMenu.size(); i++) {
+            mDrawerMenu.getItem(i).setOnMenuItemClickListener(this);
+        }
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        if (view_stub != null) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            View stubView = inflater.inflate(layoutResID, view_stub, false);
+            view_stub.addView(stubView, lp);
+        }
+    }
+
+    @Override
+    public void setContentView(View view) {
+        if (view_stub != null) {
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            view_stub.addView(view, lp);
+        }
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        if (view_stub != null) {
+            view_stub.addView(view, params);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
@@ -60,9 +113,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(sync);
                 break;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 }

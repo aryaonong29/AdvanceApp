@@ -1,5 +1,6 @@
 package com.arianasp.advanceapp.activity;
 
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -11,24 +12,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.arianasp.advanceapp.R;
-import com.arianasp.advanceapp.database.ExpensesDataBaseSQLite;
+import com.arianasp.advanceapp.database.DataBaseSQLite;
 
 public class DashboardActivity extends BaseActivity {
-
     RecyclerView recyclerViewIncome;
     RecyclerView recyclerViewExpenses;
     RecyclerView.Adapter rvAdapterIncome, rvAdapterExpenses;
     RecyclerView.LayoutManager rvLmIncome, rvLmExpenses;
-    Cursor cIncome, cExpenses;
+    Cursor cIncome, cExpenses,cIn,cExp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        this.setTitle("Dasboard");
 
 
-        final ExpensesDataBaseSQLite db = new ExpensesDataBaseSQLite(this);// inisialisasi database di sqlite
+        final DataBaseSQLite db = new DataBaseSQLite(this);// inisialisasi database di sqlite
         cIncome = db.addIncome();//masukin data ke income
+        cIn = db.addIncome();
         cExpenses = db.addExpenses();//masukin data ke expenses
+        cExp = db.addExpenses();
 
         recyclerViewIncome = (RecyclerView) findViewById(R.id.recyclerViewIncome);
         recyclerViewIncome.setHasFixedSize(true);
@@ -37,6 +41,8 @@ public class DashboardActivity extends BaseActivity {
         recyclerViewExpenses.setHasFixedSize(true);//RecyclerView can perform several optimizations
         // if it can know in advance that RecyclerView's size is not affected by the adapter contents.
 
+        //LinearLayoutManager
+        //Hanya mendukung satu kolom jika itu orientasinya vertical dan satu baris jika orientasinya horizontal.
         rvLmIncome = new LinearLayoutManager(this);
         rvLmExpenses = new LinearLayoutManager(this);
         recyclerViewIncome.setLayoutManager(rvLmIncome);
@@ -47,8 +53,26 @@ public class DashboardActivity extends BaseActivity {
 
         rvAdapterExpenses = new ExpenseAdapter(putExpenses());
         recyclerViewExpenses.setAdapter(rvAdapterExpenses);
+
+        int amountIncome = 0;
+        TextView totalI = (TextView) findViewById(R.id.tv_total_I);
+        while (cIn.moveToNext()) {
+            amountIncome += cIn.getInt(cIn.getColumnIndex("AMOUNT"));
+        }
+        totalI.setText("Rp. " + String.valueOf(amountIncome));
+
+        int amountExpenses = 0;
+        TextView totalE = (TextView) findViewById(R.id.tv_total_E);
+        while (cExp.moveToNext()) {
+            amountExpenses += cExp.getInt(cExp.getColumnIndex("AMOUNT"));
+        }
+        totalE.setText("Rp. " + String.valueOf(amountExpenses));
+
+        TextView balance = (TextView) findViewById(R.id.tv_balancetotal);
+        balance.setText("Rp. " + String.valueOf(amountIncome-amountExpenses));
     }
 
+    //mthod Cursor interface, that provides random read-write access to the result set returned by a database query.
     private String [] putIncome(){
         String [] incomeA = new String[cIncome.getCount()];
         while(cIncome.moveToNext()){
@@ -93,6 +117,8 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
+
+    //method untuk atur dan menampilkan data untuk expenses
     private String[] putExpenses(){
         String[] expensesA = new String[cExpenses.getCount()];
         while(cExpenses.moveToNext()){

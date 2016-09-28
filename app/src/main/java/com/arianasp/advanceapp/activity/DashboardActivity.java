@@ -10,7 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arianasp.advanceapp.R;
 import com.arianasp.advanceapp.database.DataBaseSQLite;
@@ -30,9 +33,9 @@ public class DashboardActivity extends BaseActivity {
 
 
         final DataBaseSQLite db = new DataBaseSQLite(this);// inisialisasi database di sqlite
-        cIncome = db.addIncome();//masukin data ke income
+        cIncome = db.addIncome();//masukin transactionData ke income
         cIn = db.addIncome();
-        cExpenses = db.addExpenses();//masukin data ke expenses
+        cExpenses = db.addExpenses();//masukin transactionData ke expenses
         cExp = db.addExpenses();
 
         recyclerViewIncome = (RecyclerView) findViewById(R.id.recyclerViewIncome);
@@ -111,12 +114,58 @@ public class DashboardActivity extends BaseActivity {
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.tvIncome.setText(dataI[position]);
 
-            holder.tvIncome.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.tvIncome.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View v) {
                     final Dialog dialog = new Dialog(DashboardActivity.this);
                     dialog.setContentView(R.layout.dialog_edit);
                     cIncome.moveToPosition(position);
+
+                    final int idxIncome =cIncome.getInt(cIncome.getColumnIndexOrThrow("ID"));
+
+                    final EditText descIncome = (EditText) dialog.findViewById(R.id.edDesc);
+                    String getDescIncome = cIncome.getString(cIncome.getColumnIndex("DESCRIPTION"));
+                    descIncome.setText(getDescIncome);
+
+                    final EditText amoIncome = (EditText) dialog.findViewById(R.id. edAmount);
+                    String getAmoIncome = cIncome.getString(cIncome.getColumnIndex("AMOUNT"));
+                    amoIncome.setText(getAmoIncome);
+
+                    Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
+                    btnUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
+                            myDB1.updateIncome(String.valueOf(idxIncome), descIncome.getText().toString(), amoIncome.getText().toString());
+                            Toast.makeText(DashboardActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Button btnDelete = (Button) dialog.findViewById(R.id.btnDelete);
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
+                            myDB1.deleteIncome(String.valueOf(idxIncome));
+                            Toast.makeText(DashboardActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
                 }
             });
 
@@ -130,7 +179,7 @@ public class DashboardActivity extends BaseActivity {
     }
 
 
-    //method untuk atur dan menampilkan data untuk expenses
+    //method untuk atur dan menampilkan transactionData untuk expenses
     private String[] putExpenses(){
         String[] expensesA = new String[cExpenses.getCount()];
         while(cExpenses.moveToNext()){
@@ -165,8 +214,65 @@ public class DashboardActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(ExpenseAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(ExpenseAdapter.ViewHolder holder, final int position) {
             holder.tvExpenses.setText(dataE[position]);
+
+            holder.tvExpenses.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = new Dialog(DashboardActivity.this);
+                    dialog.setContentView(R.layout.dialog_edit);
+                    cExpenses.moveToPosition(position);
+
+                    final int idxIncome =cExpenses.getInt(cExpenses.getColumnIndexOrThrow("ID"));
+
+                    final EditText descExpense= (EditText) dialog.findViewById(R.id.edDesc);
+                    String getDescExpenses = cExpenses.getString(cExpenses.getColumnIndex("DESCRIPTION"));
+                    descExpense.setText(getDescExpenses);
+
+                    final EditText amoExpenses = (EditText) dialog.findViewById(R.id. edAmount);
+                    String getAmoExpenses = cExpenses.getString(cExpenses.getColumnIndex("AMOUNT"));
+                    amoExpenses.setText(getAmoExpenses);
+
+                    Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
+                    btnUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
+                            myDB1.updateIncome(String.valueOf(idxIncome), descExpense.getText().toString(), amoExpenses.getText().toString());
+                            Toast.makeText(DashboardActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Button btnDelete = (Button) dialog.findViewById(R.id.btnDelete);
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
+                            myDB1.deleteIncome(String.valueOf(idxIncome));
+                            Toast.makeText(DashboardActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(getIntent());
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                }
+            });
+
+            //code utk put dialog
         }
 
         @Override

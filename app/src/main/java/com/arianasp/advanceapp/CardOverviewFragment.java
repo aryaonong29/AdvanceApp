@@ -11,57 +11,58 @@ import android.widget.Toast;
 
 import com.arianasp.advanceapp.database.DataBaseSQLite;
 
+import static com.arianasp.advanceapp.R.id.buttonAddExpenses;
 
-public class CardOverviewFragment extends Fragment {
+
+public class CardOverviewFragment extends Fragment implements View.OnClickListener  {
     DataBaseSQLite db;
     EditText tvDesription,tvAmount,tvStuff,tvPrice;
-    Button buttonAddIncome,buttonCancelIncome,buttonAddExpenses,buttonCancelExpenses;
+    Button buttonAddInc,buttonAddExp;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_overview, container, false);
         db = new DataBaseSQLite(getActivity());
         tvDesription = (EditText)view.findViewById(R.id.tvDescription);
         tvAmount = (EditText)view.findViewById(R.id.tvAmount);
-        buttonAddIncome = (Button)view.findViewById(R.id.buttonAddIncome);
-        buttonCancelIncome = (Button)view.findViewById(R.id.buttonCancelIncome);
-        if(view.getId() == R.id.buttonAddIncome){
-            buttonAddIncome.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String des = tvDesription.getText().toString();
-                    String amo = tvAmount.getText().toString();
-
-                    boolean result = db.saveDataIncome(des, amo);
-                    if (result) {
-                        Toast.makeText(getActivity(), "Add Income Success", Toast.LENGTH_SHORT).show();
-                        tvDesription.setText("");
-                        tvAmount.setText("");
-                    }else {
-                        Toast.makeText(getActivity(), "Add Income Failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-        else if(view.getId() == R.id.buttonAddExpenses){
-            buttonAddExpenses.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String des = tvStuff.getText().toString();
-                    String amo = tvPrice.getText().toString();
-
-                    boolean result = db.saveDataExpenses(des, amo);
-                    if (result) {
-                        Toast.makeText(getActivity(), "Add Expenses Success", Toast.LENGTH_SHORT).show();
-                        tvStuff.setText("");
-                        tvPrice.setText("");
-                    }else {
-                        Toast.makeText(getActivity(), "Add Expenses Failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-        return view;
+        tvStuff = (EditText) view.findViewById(R.id.tvstuff);
+        tvPrice = (EditText) view.findViewById(R.id.tvprice);
+        buttonAddInc = (Button)view.findViewById(R.id.buttonAddIncome);
+        buttonAddInc.setOnClickListener(this);
+        buttonAddExp = (Button)view.findViewById(buttonAddExpenses);
+        buttonAddExp.setOnClickListener(this);
+;       return view;
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonAddIncome:
+                String descInc = tvDesription.getText().toString();
+                String amountInc = tvAmount.getText().toString();
+
+                boolean resultInc = db.saveDataIncome(descInc, amountInc);
+                if (resultInc) {
+                    Toast.makeText(getActivity(), "Inc Sukses Bro", Toast.LENGTH_SHORT).show();
+                    tvDesription.setText("");
+                    tvAmount.setText("");
+                }else {
+                    Toast.makeText(getActivity(), "Hapunten Inc Gagal Bro", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case buttonAddExpenses:
+                String descExp = tvStuff.getText().toString();
+                String amountExp = tvPrice.getText().toString();
+
+                boolean resultExp = db.saveDataExpenses(descExp, amountExp);
+                if (resultExp) {
+                    Toast.makeText(getActivity(), "Exp Sukses Bro", Toast.LENGTH_SHORT).show();
+                    tvStuff.setText("");
+                    tvPrice.setText("");
+                } else {
+                    Toast.makeText(getActivity(), "Hapunten Exp Gagal Bro", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }

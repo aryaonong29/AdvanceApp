@@ -51,30 +51,23 @@
                 <EditText
                     android:id="@+id/tvAmount"
                     android:hint="Amount"
-                    style="@style/etStyle02"
+                    style="@style/etStyleNum"
                     />
             </android.support.design.widget.TextInputLayout>
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:gravity="center">
 
                 <Button
                     android:text="ADD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonAddIncome" />
-
-                <Button
-                    android:text="CANCEL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/buttonAddIncome"
-                    android:id="@+id/buttonCancelIncome" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -120,30 +113,22 @@
                 <EditText
                     android:id="@+id/tvprice"
                     android:hint="Price"
-                    style="@style/etStyle02"
+                    style="@style/etStyleNum"
                     />
             </android.support.design.widget.TextInputLayout>
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:gravity="center">
 
                 <Button
                     android:text="ADD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonAddExpenses" />
-
-                <Button
-                    android:text="CANCEL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/buttonAddExpenses"
-                    android:id="@+id/buttonCancelExpenses" />
-            </RelativeLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -151,5 +136,19 @@
 
 
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:text="Transaction Page"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
 
 </RelativeLayout>

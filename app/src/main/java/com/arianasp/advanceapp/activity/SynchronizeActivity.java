@@ -1,6 +1,8 @@
 package com.arianasp.advanceapp.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,8 @@ public class SynchronizeActivity extends BaseActivity {
     EditText tvDesription,tvAmount,tvStuff,tvPrice;
     DataBaseSQLite db;
     Button btnSync;
+    ProgressDialog dialogReg;
+    String descIncome, descExpenses, amountIncome, amountExpenses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +36,18 @@ public class SynchronizeActivity extends BaseActivity {
         tvAmount = (EditText)findViewById(R.id.tvAmount);
         tvStuff = (EditText)findViewById(R.id.tvstuff);
         tvPrice = (EditText)findViewById(R.id.tvprice);
+        descIncome = tvDesription.getText().toString();
+        descExpenses = tvStuff.getText().toString();
+        amountIncome = tvAmount.getText().toString();
+        amountExpenses= tvPrice.getText().toString();
         btnSync = (Button) findViewById(R.id.btnSync);
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogReg = new ProgressDialog(SynchronizeActivity.this);
+                dialogReg.setTitle("Registration dulu bro");
+                dialogReg.setMessage("Loading ...");
+                dialogReg.setProgress(0);
                 getApiIncome();
             }
         });
@@ -62,19 +74,19 @@ public class SynchronizeActivity extends BaseActivity {
                 int status = response.code();
                 tvStatus.setText(String.valueOf(status));
                 for(TransactionSerialized.IncomeItem incomeItem : response.body().getIncomeItem()){
-                    Toast.makeText(SynchronizeActivity.this, "DATA NA AYA BRO", Toast.LENGTH_LONG).show();
-//                    if(incomeItem.getDescriptionIncome().toString().equals(tvDesription.getText().toString())
-//                            && incomeItem.getAmountIncome().toString().equals(tvAmount.getText().toString())){
-//                        Toast.makeText(SynchronizeActivity.this, "DATA NA AYA BRO", Toast.LENGTH_LONG).show();
-//                        break;
-//                    }else{
-//                        Toast.makeText(SynchronizeActivity.this, "DATA NA LEPAT BRO", Toast.LENGTH_LONG).show();
-//                    }
+                    if(incomeItem.getDescriptionIncome().toString().equals(descIncome)){
+                        Toast.makeText(SynchronizeActivity.this, "DATA NA AYA BRO", Toast.LENGTH_LONG).show();
+                        break;
+                    }else{
+                        postApiIncome();
+                        break;
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<TransactionSerialized> call, Throwable t) {
+                dialogReg.dismiss();
                 tvStatus.setText(String.valueOf(t));
             }
         });
@@ -102,20 +114,21 @@ public class SynchronizeActivity extends BaseActivity {
                 tvStatus.setText("");
                 tvStatus.setText(String.valueOf(status));
                 for(TransactionSerialized.ExpenseItem expenseItem : response.body().getExpensesItem()){
-                    if(expenseItem.getDescriptionExpense().toString().equals(tvStuff.getText().toString())
-                            && expenseItem.getAmountExpense().toString().equals(tvPrice.getText().toString())){
+                    if(expenseItem.getDescriptionExpense().toString().equals(descExpenses)){
                         Toast.makeText(SynchronizeActivity.this, "DATA EXP NA AYA BRO", Toast.LENGTH_LONG).show();
 
 
                         break;
                     }else{
-                        Toast.makeText(SynchronizeActivity.this, "DATA EXP NA EWEUH BRO", Toast.LENGTH_LONG).show();
+                        postApiExpenses();
+                        break;
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<TransactionSerialized> call, Throwable t) {
+                dialogReg.dismiss();
                 tvStatus.setText(String.valueOf(t));
             }
 
@@ -124,74 +137,81 @@ public class SynchronizeActivity extends BaseActivity {
         });
     }
 
-//    private void postApiIncome(){
-//        Gson gson = new GsonBuilder()
-//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-//                .create();
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build();
-//
-//        final TransactionAPI postApiIncome = retrofit.create(TransactionAPI.class);
-//
-//
-//
-//        // // implement interface for get all user
-//        TransactionData dataPostIncome = new TransactionData(tvDesription,tvAmount,tvStuff,tvPrice);
-//        Gson gsonPAI = new Gson();
-//        String json = gsonPAI.toJson(dataPostIncome);
-//        Log.e("CEKIDOT", json);
-//        Call<TransactionData> callPI = postApiIncome.saveIncomeItem(dataPostIncome);
-//
-//        callPI.enqueue(new Callback<TransactionData>() {
-//            @Override
-//            public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
-//                int status = response.code();
-//                tvStatus.setText("");
-//                tvStatus.setText(String.valueOf(status));
-//                Toast.makeText(SynchronizeActivity.this, "POST Income berhasil", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TransactionData> call, Throwable t) {
-//                tvStatus.setText(String.valueOf(t));
-//            }
-//        });
-//    }
-//
-//    private void postApiExpenses(){
-//        Gson gson = new GsonBuilder()
-//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-//                .create();
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build();
-//
-//        final TransactionAPI postapiExpenses = retrofit.create(TransactionAPI.class);
-//
-//        // // implement interface for get all user
-//        Call<TransactionData> callPE = postapiExpenses.saveExpensesItem(tvDesription,tvAmount,tvStuff,tvPrice);
-//
-//
-//        callPE.enqueue(new Callback<TransactionData>() {
-//            @Override
-//            public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
-//                int status = response.code();
-//                tvStatus.setText("");
-//                tvStatus.setText(String.valueOf(status));
-//                Toast.makeText(SynchronizeActivity.this, "POST Income berhasil", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TransactionData> call, Throwable t) {
-//                tvStatus.setText(String.valueOf(t));
-//            }
-//        });
-//    }
+    private void postApiIncome(){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        final TransactionAPI postApiIncome = retrofit.create(TransactionAPI.class);
+
+
+
+        // // implement interface for get all user
+        TransactionData dataPostIncome = new TransactionData(descIncome,descExpenses,amountIncome,amountExpenses);
+        Gson gsonPAI = new Gson();
+        String json = gsonPAI.toJson(dataPostIncome);
+        Log.e("CEKIDOT", json);
+        Call<TransactionData> callPI = postApiIncome.saveIncomeItem(dataPostIncome);
+
+        callPI.enqueue(new Callback<TransactionData>() {
+            @Override
+            public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
+                int status = response.code();
+                dialogReg.dismiss();
+                tvStatus.setText("");
+                tvStatus.setText(String.valueOf(status));
+                Toast.makeText(SynchronizeActivity.this, "POST Income berhasil", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<TransactionData> call, Throwable t) {
+                dialogReg.dismiss();
+                tvStatus.setText(String.valueOf(t));
+            }
+        });
+    }
+
+    private void postApiExpenses(){
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        final TransactionAPI postApiExpenses = retrofit.create(TransactionAPI.class);
+
+        // // implement interface for get all user
+
+        TransactionData dataPostExpenses = new TransactionData(descIncome,descExpenses,amountIncome,amountExpenses);
+        Gson gsonPAI = new Gson();
+        String json2 = gsonPAI.toJson(dataPostExpenses);
+        Log.e("CEKIDOT", json2);
+        Call<TransactionData> callPE = postApiExpenses.saveExpensesItem(dataPostExpenses);
+
+        callPE.enqueue(new Callback<TransactionData>() {
+            @Override
+            public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
+                int status = response.code();
+                dialogReg.dismiss();
+                tvStatus.setText("");
+                tvStatus.setText(String.valueOf(status));
+                Toast.makeText(SynchronizeActivity.this, "POST Expenses berhasil", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<TransactionData> call, Throwable t) {
+                tvStatus.setText(String.valueOf(t));
+            }
+        });
+    }
 }

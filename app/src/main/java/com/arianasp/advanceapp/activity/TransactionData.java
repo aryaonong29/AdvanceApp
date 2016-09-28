@@ -6,14 +6,12 @@ package com.arianasp.advanceapp.activity;
 
 public class TransactionData {
     private int idIncome,idExpenses;
-    private String descriptionIncome, getDescriptionExpenses;
-    private String amountIncome, amountExpenses;
+    public String descriptionIncome, descriptionExpenses;
+    public String amountIncome, amountExpenses;
 
-    public TransactionData(String descriptionIncome, String getDescriptionExpenses, String amountIncome, String amountExpenses) {
-        this.idIncome = idIncome;
-        this.idExpenses = idExpenses;
+    public TransactionData(String descriptionIncome, String descriptionExpenses, String amountIncome, String amountExpenses) {
         this.descriptionIncome = descriptionIncome;
-        this.getDescriptionExpenses = getDescriptionExpenses;
+        this.descriptionExpenses = descriptionExpenses;
         this.amountIncome = amountIncome;
         this.amountExpenses = amountExpenses;
     }
@@ -42,12 +40,12 @@ public class TransactionData {
         this.descriptionIncome = descriptionIncome;
     }
 
-    public String getGetDescriptionExpenses() {
-        return getDescriptionExpenses;
+    public String getDescriptionExpenses() {
+        return descriptionExpenses;
     }
 
-    public void setGetDescriptionExpenses(String getDescriptionExpenses) {
-        this.getDescriptionExpenses = getDescriptionExpenses;
+    public void setGetDescriptionExpenses(String descriptionExpenses) {
+        this.descriptionExpenses = descriptionExpenses;
     }
 
     public String getAmountIncome() {

@@ -10,8 +10,8 @@ public class TransactionData {
     private String amountIncome, amountExpenses;
 
     public TransactionData(String descriptionIncome, String getDescriptionExpenses, String amountIncome, String amountExpenses) {
-//        this.idIncome = idIncome;
-//        this.idExpenses = idExpenses;
+        this.idIncome = idIncome;
+        this.idExpenses = idExpenses;
         this.descriptionIncome = descriptionIncome;
         this.getDescriptionExpenses = getDescriptionExpenses;
         this.amountIncome = amountIncome;

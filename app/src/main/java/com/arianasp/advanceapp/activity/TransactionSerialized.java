@@ -18,7 +18,10 @@ public class TransactionSerialized {
     public List<ExpenseItem> expenseItem;
     public List<ExpenseItem> getExpensesItem() { return expenseItem;}
     public void setExpenseItem(List<ExpenseItem> expenseItem){ this.expenseItem = expenseItem;}
-
+    public TransactionSerialized(List<IncomeItem> incomeItem, List<ExpenseItem> expenseItem){
+        this.incomeItem = incomeItem;
+        this.expenseItem = expenseItem;
+    }
     public class IncomeItem{
         private int idIncome;
         private String descriptionIncome;

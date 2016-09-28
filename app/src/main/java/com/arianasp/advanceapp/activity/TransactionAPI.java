@@ -22,12 +22,12 @@ public interface TransactionAPI {
 
     @GET("/income_Trans{idIncome}")
 
-    Call<TransactionData> getIncomeItem(@Path("idIncome") String incomeItem_id);
+    Call<TransactionData> getIncomeItem(@Path("idIncome") String incomeItem_idIncome);
 
 
     @PUT("/income_Trans/{idIncome}")
 
-    Call<TransactionData> updateIncomeItem(@Path("idIncome") int incomeItem_id, @Body TransactionData incomeItem);
+    Call<TransactionData> updateIncomeItem(@Path("idIncome") int incomeItem_idIncome, @Body TransactionData incomeItem);
 
 
     @POST("/income_Trans")
@@ -37,7 +37,10 @@ public interface TransactionAPI {
 
     @DELETE("/income_Trans/{idIncome}")
 
-    Call<TransactionData> deleteIncomeItem(@Path("idIncome") String incomeItem);
+    Call<TransactionData> deleteIncomeItem(@Path("idIncome") String incomeItem_idIncome);
+
+
+
 
     //untuk EXPENSES API
 
@@ -47,12 +50,12 @@ public interface TransactionAPI {
 
     @GET("/expenses_Trans{idExpense}")
 
-    Call<TransactionData> getExpensesItem(@Path("idExpense") String expensesItem_id);
+    Call<TransactionData> getExpensesItem(@Path("idExpense") String expensesItem_idExpenses);
 
 
     @PUT("/expenses_Trans/{idExpense}")
 
-    Call<TransactionData> updateExpensesItem(@Path("idExpense") int expensesItem_id, @Body TransactionData expensesItem);
+    Call<TransactionData> updateExpensesItem(@Path("idExpense") int expensesItem_idExpenses, @Body TransactionData expensesItem);
 
 
     @POST("/expenses_Trans")
@@ -62,5 +65,5 @@ public interface TransactionAPI {
 
     @DELETE("/expenses_Trans/{id}")
 
-    Call<TransactionData> deleteExpensesItem(@Path("idExpense") String expensesItem);
+    Call<TransactionData> deleteExpensesItem(@Path("idExpense") String expensesItem_idExpenses);
 }

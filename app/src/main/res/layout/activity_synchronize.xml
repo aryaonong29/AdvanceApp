@@ -27,10 +27,21 @@
 
 
     <Button
+        android:id="@+id/btnSync"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="SYNCHRONIZE NOW"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:id="@+id/tvStatus"
+        android:layout_below="@+id/btnSync"
+        android:paddingTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="STATUS"/>
 
 </RelativeLayout>

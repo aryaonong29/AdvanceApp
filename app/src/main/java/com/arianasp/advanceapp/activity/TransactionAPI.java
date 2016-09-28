@@ -22,22 +22,22 @@ public interface TransactionAPI {
 
     @GET("/income_Trans{idIncome}")
 
-    Call<TransactionSerialized> getIncomeItem(@Path("idIncome") String incomeItem_id);
+    Call<TransactionData> getIncomeItem(@Path("idIncome") String incomeItem_id);
 
 
     @PUT("/income_Trans/{idIncome}")
 
-    Call<TransactionSerialized> updateIncomeItem(@Path("idIncome") int incomeItem_id, @Body TransactionSerialized incomeItem);
+    Call<TransactionData> updateIncomeItem(@Path("idIncome") int incomeItem_id, @Body TransactionData incomeItem);
 
 
     @POST("/income_Trans")
 
-    Call<TransactionSerialized> saveIncomeItem(@Body TransactionSerialized incomeItem);
+    Call<TransactionData> saveIncomeItem(@Body TransactionData incomeItem);
 
 
     @DELETE("/income_Trans/{idIncome}")
 
-    Call<TransactionSerialized> deleteIncomeItem(@Path("idIncome") String incomeItem);
+    Call<TransactionData> deleteIncomeItem(@Path("idIncome") String incomeItem);
 
     //untuk EXPENSES API
 
@@ -47,20 +47,20 @@ public interface TransactionAPI {
 
     @GET("/expenses_Trans{idExpense}")
 
-    Call<TransactionSerialized> getExpensesItem(@Path("idExpense") String expensesItem_id);
+    Call<TransactionData> getExpensesItem(@Path("idExpense") String expensesItem_id);
 
 
     @PUT("/expenses_Trans/{idExpense}")
 
-    Call<TransactionSerialized> updateExpensesItem(@Path("idExpense") int expensesItem_id, @Body TransactionSerialized expensesItem);
+    Call<TransactionData> updateExpensesItem(@Path("idExpense") int expensesItem_id, @Body TransactionData expensesItem);
 
 
     @POST("/expenses_Trans")
 
-    Call<TransactionSerialized> saveExpenseItem(@Body TransactionSerialized expensesItem);
+    Call<TransactionData> saveExpensesItem(@Body TransactionData expensesItem);
 
 
     @DELETE("/expenses_Trans/{id}")
 
-    Call<TransactionSerialized> deleteExpensesItem(@Path("idExpense") String expensesItem);
+    Call<TransactionData> deleteExpensesItem(@Path("idExpense") String expensesItem);
 }

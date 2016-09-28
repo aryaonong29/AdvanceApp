@@ -9,9 +9,9 @@ public class TransactionData {
     private String descriptionIncome, getDescriptionExpenses;
     private String amountIncome, amountExpenses;
 
-    public TransactionData(int idIncome, int idExpenses, String descriptionIncome, String getDescriptionExpenses, String amountIncome, String amountExpenses) {
-        this.idIncome = idIncome;
-        this.idExpenses = idExpenses;
+    public TransactionData(String descriptionIncome, String getDescriptionExpenses, String amountIncome, String amountExpenses) {
+//        this.idIncome = idIncome;
+//        this.idExpenses = idExpenses;
         this.descriptionIncome = descriptionIncome;
         this.getDescriptionExpenses = getDescriptionExpenses;
         this.amountIncome = amountIncome;

@@ -9,12 +9,12 @@ import java.util.List;
  */
 
 public class TransactionSerialized {
-    @SerializedName("incomeTrans")
+    @SerializedName("income_Trans")
     public List<IncomeItem> incomeItem;
     public List<IncomeItem> getIncomeItem() { return incomeItem;}
     public void setIncomeItem(List<IncomeItem> incomeItem){ this.incomeItem = incomeItem;}
 
-    @SerializedName("expensesTrans")
+    @SerializedName("expenses_Trans")
     public List<ExpenseItem> expenseItem;
     public List<ExpenseItem> getExpensesItem() { return expenseItem;}
     public void setExpenseItem(List<ExpenseItem> expenseItem){ this.expenseItem = expenseItem;}

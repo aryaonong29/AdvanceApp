@@ -224,13 +224,13 @@ public class DashboardActivity extends BaseActivity {
                     dialog.setContentView(R.layout.dialog_edit);
                     cExpenses.moveToPosition(position);
 
-                    final int idxIncome =cExpenses.getInt(cExpenses.getColumnIndexOrThrow("ID"));
+                    final int idxExpenses =cExpenses.getInt(cExpenses.getColumnIndexOrThrow("ID"));
 
                     final EditText descExpense= (EditText) dialog.findViewById(R.id.edDesc);
                     String getDescExpenses = cExpenses.getString(cExpenses.getColumnIndex("DESCRIPTION"));
                     descExpense.setText(getDescExpenses);
 
-                    final EditText amoExpenses = (EditText) dialog.findViewById(R.id. edAmount);
+                    final EditText amoExpenses = (EditText) dialog.findViewById(R.id.edAmount);
                     String getAmoExpenses = cExpenses.getString(cExpenses.getColumnIndex("AMOUNT"));
                     amoExpenses.setText(getAmoExpenses);
 
@@ -239,7 +239,7 @@ public class DashboardActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
-                            myDB1.updateIncome(String.valueOf(idxIncome), descExpense.getText().toString(), amoExpenses.getText().toString());
+                            myDB1.updateExpense(String.valueOf(idxExpenses), descExpense.getText().toString(), amoExpenses.getText().toString());
                             Toast.makeText(DashboardActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
@@ -252,7 +252,7 @@ public class DashboardActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
-                            myDB1.deleteIncome(String.valueOf(idxIncome));
+                            myDB1.deleteExpense(String.valueOf(idxExpenses));
                             Toast.makeText(DashboardActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());

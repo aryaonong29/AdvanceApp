@@ -44,4 +44,16 @@
         android:layout_centerHorizontal="true"
         android:text="STATUS"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/tvLastData"
+        android:layout_below="@+id/tvStatus"
+        android:paddingTop="40dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:hint="RESPONSE"
+        android:textAlignment="center"
+        android:scrollbars="vertical"/>
+
 </RelativeLayout>

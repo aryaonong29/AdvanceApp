@@ -137,62 +137,64 @@ public class SynchronizeActivity extends BaseActivity {
         String json = gsonPAI.toJson(dataPostIncome);
         Log.e("CEKIDOT", json);
 
+        TransactionDataIncome curData = new TransactionDataIncome(curInc.getString(1), curInc.getString(2));
 
-        for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()) {
-
-        }
-            TransactionDataIncome curData = new TransactionDataIncome(curInc.getString(1), curInc.getString(2));
-
-            Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
-
-            callPI.enqueue(new Callback<TransactionDataIncome>() {
-                @Override
-                public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
-                    int status = response.code();
-
-                    tvResponses.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
-                    if (status==201) {
-                        Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
-                    } else if (status==400) {
-                        Toast.makeText(SynchronizeActivity.this, "Sync Failed", Toast.LENGTH_SHORT).show();
-                    }
-                    if (curInc.isAfterLast()==true) {
-                        if (dialogReg.isShowing())
-                            dialogReg.dismiss();
-                    }
+        Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
+        callPI.enqueue(new Callback<TransactionDataIncome>() {
+            @Override
+            public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
+                int status = response.code();
+                for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()) {
+                    tvResponses.setText(String.valueOf(curInc.getPosition()));
+                    DataBaseSQLite myDb = new DataBaseSQLite(SynchronizeActivity.this);
+                    myDb.updateIncomeTemp(String.valueOf(curInc.getInt(0)), tvResponses.getText().toString());
+                    Toast.makeText(SynchronizeActivity.this, String.valueOf(curInc.getPosition()), Toast.LENGTH_SHORT).show();
                 }
-
-                @Override
-                public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
-                    if(dialogReg.isShowing()){
-                        dialogReg.dismiss();
-                    }
-                    AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
-
-                    alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
-                            .setPositiveButton("Skip", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(SynchronizeActivity.this, "Skip.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    try {
-                                        postApiIncome();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    dialog.dismiss();
-                                    Toast.makeText(SynchronizeActivity.this, "Internet Mati Coy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                    alert.show();
-
+//                tvResponses.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
+                if (status==201) {
+                    Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
+                } else if (status==400) {
+                    Toast.makeText(SynchronizeActivity.this, "Sync Failed", Toast.LENGTH_SHORT).show();
                 }
-            });
+                if (dialogReg.isShowing()) dialogReg.dismiss();
+
+            }
+
+            @Override
+            public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
+                if(dialogReg.isShowing()){
+                    dialogReg.dismiss();
+                }
+                AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
+
+                alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
+                        .setPositiveButton("Skip", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(SynchronizeActivity.this, "Skip.", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    postApiIncome();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                dialog.dismiss();
+                                Toast.makeText(SynchronizeActivity.this, "Internet Mati Coy", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                alert.show();
+
+            }
+        });
+
+
+
+
 
 
     }

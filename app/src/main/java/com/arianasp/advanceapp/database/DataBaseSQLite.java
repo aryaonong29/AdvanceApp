@@ -20,21 +20,25 @@ public class DataBaseSQLite extends SQLiteOpenHelper {
     public static final String COL_IN_ID = "ID";
     public static final String COL_IN_DES = "DESCRIPTION";
     public static final String COL_IN_AMO = "AMOUNT";
+    public static final String COL_IN_TEMP = "TMP";
 
     public static final String TABLE_NAME_EXPENSES = "expenses";
     public static final String COL_EX_ID = "ID";
     public static final String COL_EX_DES = "DESCRIPTION";
     public static final String COL_EX_AMO = "AMOUNT";
+    public static final String COL_EX_TEMP = "TMP";
 
     public static final String TABLE_CREATE_INCOME = "CREATE TABLE " + TABLE_NAME_INCOME + " ( " +
             COL_IN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_IN_DES + " TEXT, " +
-            COL_IN_AMO + " TEXT );";
+            COL_IN_AMO + " TEXT, " +
+            COL_IN_TEMP + "TEXT);";
 
     public static final String TABLE_CREATE_EXPENSES = "CREATE TABLE " + TABLE_NAME_EXPENSES + " ( " +
             COL_EX_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_EX_DES + " TEXT, " +
-            COL_EX_AMO + " TEXT );";
+            COL_EX_AMO + " TEXT, " +
+            COL_IN_TEMP + "TEXT);";
 
     public DataBaseSQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -94,6 +98,16 @@ public class DataBaseSQLite extends SQLiteOpenHelper {
         cVal.put(COL_IN_ID, id);
         cVal.put(COL_IN_DES, desc);
         cVal.put(COL_IN_AMO, amount);
+        db.update(TABLE_NAME_INCOME, cVal, "ID = ? ", new String[]{id});//Convenience method for updating rows in the database.
+        return true;
+    }
+
+    public boolean updateIncomeTemp(String id, String temp) {
+        SQLiteDatabase db = this.getWritableDatabase();//Create and/or open a database that will be used for reading and writing.
+        ContentValues cVal = new ContentValues();//ContentValues : Creates an empty set of values using the default initial size
+        //put : Adds a value to the set.
+        cVal.put(COL_IN_ID, id);
+        cVal.put(COL_IN_TEMP, temp);
         db.update(TABLE_NAME_INCOME, cVal, "ID = ? ", new String[]{id});//Convenience method for updating rows in the database.
         return true;
     }

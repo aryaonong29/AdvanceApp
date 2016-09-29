@@ -101,7 +101,7 @@ public class SynchronizeActivity extends BaseActivity {
         int count = 0;
 
         dialogReg = new ProgressDialog(SynchronizeActivity.this);
-        dialogReg.setTitle("Syncronize on Process");
+        dialogReg.setTitle("Syncronize dulu bro");
         dialogReg.setMessage("Loading ...");
         dialogReg.setProgress(0);
 
@@ -132,33 +132,35 @@ public class SynchronizeActivity extends BaseActivity {
 
         for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()){
             TransactionDataIncome curData = new TransactionDataIncome(curInc.getString(1), curInc.getString(2));
-        }
-        Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(dataPostIncome);
 
-        callPI.enqueue(new Callback<TransactionDataIncome>() {
-            @Override
-            public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
-                int status = response.code();
-                tvStatus.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
-                if (status==201) {
-                    Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
-                } else if (status==400) {
-                    Toast.makeText(SynchronizeActivity.this, "Sync Failed", Toast.LENGTH_SHORT).show();
+            Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
+
+            callPI.enqueue(new Callback<TransactionDataIncome>() {
+                @Override
+                public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
+                    int status = response.code();
+                    tvResponses.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
+                    if (status==201) {
+                        Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
+                    } else if (status==400) {
+                        Toast.makeText(SynchronizeActivity.this, "Sync Failed", Toast.LENGTH_SHORT).show();
+                    }
+                    if (curInc.isAfterLast()==true) {
+                        if (dialogReg.isShowing())
+                            dialogReg.dismiss();
+                    }
                 }
-                if (curInc.isAfterLast()==true) {
-                    if (dialogReg.isShowing())
+
+                @Override
+                public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
+                    if(dialogReg.isShowing()){
                         dialogReg.dismiss();
+                    }
+                    Toast.makeText(SynchronizeActivity.this, String.valueOf(t), Toast.LENGTH_LONG).show();
                 }
-            }
+            });
+        }
 
-            @Override
-            public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
-                if(dialogReg.isShowing()){
-                    dialogReg.dismiss();
-                }
-                Toast.makeText(SynchronizeActivity.this, String.valueOf(t), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
 //    private void getApiExpenses(){

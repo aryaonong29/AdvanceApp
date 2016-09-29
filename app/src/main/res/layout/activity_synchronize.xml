@@ -45,11 +45,11 @@
         android:text="STATUS"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="370dp"
+        android:layout_height="300dp"
         android:id="@+id/tvLastData"
         android:layout_below="@+id/tvStatus"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:hint="RESPONSE"

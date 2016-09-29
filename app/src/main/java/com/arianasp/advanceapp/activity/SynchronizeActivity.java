@@ -1,6 +1,8 @@
 package com.arianasp.advanceapp.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,8 @@ import com.arianasp.advanceapp.R;
 import com.arianasp.advanceapp.database.DataBaseSQLite;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +50,11 @@ public class SynchronizeActivity extends BaseActivity {
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postApiIncome();
+                try {
+                    postApiIncome();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -97,7 +105,7 @@ public class SynchronizeActivity extends BaseActivity {
         });
     }
 
-    private void postApiIncome(){
+    private void postApiIncome() throws JSONException{
         int count = 0;
 
         dialogReg = new ProgressDialog(SynchronizeActivity.this);
@@ -130,7 +138,9 @@ public class SynchronizeActivity extends BaseActivity {
         Log.e("CEKIDOT", json);
 
 
-        for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()){
+        for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()) {
+
+        }
             TransactionDataIncome curData = new TransactionDataIncome(curInc.getString(1), curInc.getString(2));
 
             Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
@@ -139,6 +149,7 @@ public class SynchronizeActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
                     int status = response.code();
+
                     tvResponses.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
                     if (status==201) {
                         Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
@@ -156,10 +167,33 @@ public class SynchronizeActivity extends BaseActivity {
                     if(dialogReg.isShowing()){
                         dialogReg.dismiss();
                     }
-                    Toast.makeText(SynchronizeActivity.this, String.valueOf(t), Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
+
+                    alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
+                            .setPositiveButton("Skip", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(SynchronizeActivity.this, "Skip.", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        postApiIncome();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    dialog.dismiss();
+                                    Toast.makeText(SynchronizeActivity.this, "Internet Mati Coy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    alert.show();
+
                 }
             });
-        }
+
 
     }
 

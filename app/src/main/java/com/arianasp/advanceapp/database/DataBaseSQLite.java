@@ -21,28 +21,35 @@ public class DataBaseSQLite extends SQLiteOpenHelper {
     public static final String COL_IN_DES = "DESCRIPTION";
     public static final String COL_IN_AMO = "AMOUNT";
     public static final String COL_IN_DATE = "DATE";
-    public static final String COL_IN_TEMP = "TEMP";
 
     public static final String TABLE_NAME_EXPENSES = "expenses";
     public static final String COL_EX_ID = "ID";
     public static final String COL_EX_DES = "DESCRIPTION";
     public static final String COL_EX_AMO = "AMOUNT";
     public static final String COL_EX_DATE = "DATE";
-    public static final String COL_EX_TEMP = "TEMP";
+
+
+    public static final String TABLE_NAME_TEMPORARY = "temporary";
+    public static final String COL_TEMP_ID ="ID";
+    public static final String COL_TEMP_CURDATA ="CURDATA";
+    public static final String COL_TEMP_NAME ="TABELNAME";
 
     public static final String TABLE_CREATE_INCOME = "CREATE TABLE " + TABLE_NAME_INCOME + " ( " +
             COL_IN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_IN_DES + " TEXT, " +
             COL_IN_AMO + " TEXT, " +
-            COL_IN_DATE + " TEXT, " +
-            COL_IN_TEMP + "TEXT);";
+            COL_IN_DATE + " TEXT); ";
 
     public static final String TABLE_CREATE_EXPENSES = "CREATE TABLE " + TABLE_NAME_EXPENSES + " ( " +
             COL_EX_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_EX_DES + " TEXT, " +
             COL_EX_AMO + " TEXT, " +
-            COL_EX_DATE + " TEXT, " +
-            COL_EX_TEMP + "TEXT);";
+            COL_IN_DATE + " TEXT); ";
+
+    public static final String TABLE_CREATE_TEMPORARY = "CREATE TABLE " + TABLE_NAME_TEMPORARY + " ( " +
+            COL_TEMP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COL_TEMP_CURDATA + " TEXT, " +
+            COL_TEMP_NAME + " TEXT); ";
 
     public DataBaseSQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,12 +59,14 @@ public class DataBaseSQLite extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE_INCOME);
         db.execSQL(TABLE_CREATE_EXPENSES);
+        db.execSQL(TABLE_CREATE_TEMPORARY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INCOME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_EXPENSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TEMPORARY);
         onCreate(db);
     }
 

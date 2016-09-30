@@ -127,7 +127,7 @@ public class SynchronizeActivity extends BaseActivity {
                 .build();
 
         final TransactionAPIIncome postApiIncome = retrofit.create(TransactionAPIIncome.class);
-        for(curInc.moveToFirst(); !curInc.isAfterLast(); curInc.moveToNext()){
+        for(curInc.moveToFirst(); curInc.moveToNext(); curInc.isLast()){
             TransactionDataIncome curData = new TransactionDataIncome(curInc.getInt(0), curInc.getString(1), curInc.getString(2));
             Gson gsonPAI = new Gson();
             String json = gsonPAI.toJson(curData);
@@ -155,13 +155,12 @@ public class SynchronizeActivity extends BaseActivity {
                     }
                     AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
 
-                    alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
+                    alert.setCancelable(false).setTitle("Synchronize").setMessage("sync gagal bray")
                             .setPositiveButton("Sekip", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(SynchronizeActivity.this, "Sekip.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SynchronizeActivity.this, "Sekip atuh.", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
-                                    return;
                                 }
                             })
                             .setNegativeButton("Retry", new DialogInterface.OnClickListener() {

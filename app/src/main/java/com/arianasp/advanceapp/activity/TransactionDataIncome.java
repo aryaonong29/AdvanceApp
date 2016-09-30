@@ -10,7 +10,7 @@ public class TransactionDataIncome {
     public String amountIncome;
     public String dateIncome;
 
-    public TransactionDataIncome(int id,String descriptionIncome, String amountIncome) {
+    public TransactionDataIncome(int idIncome,String descriptionIncome, String amountIncome) {
         this.idIncome = idIncome;
         this.descriptionIncome = descriptionIncome;
         this.amountIncome = amountIncome;

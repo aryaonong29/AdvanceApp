@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static android.R.attr.name;
+
 /**
  * Created by Ariana on 9/25/2016.
  */
@@ -118,13 +120,14 @@ public class DataBaseSQLite extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean updateIncomeTemp(String id, String temp) {
+    public boolean updateTemp(String id, String temp) {
         SQLiteDatabase db = this.getWritableDatabase();//Create and/or open a database that will be used for reading and writing.
         ContentValues cVal = new ContentValues();//ContentValues : Creates an empty set of values using the default initial size
         //put : Adds a value to the set.
-        cVal.put(COL_IN_ID, id);
-        cVal.put(COL_IN_TEMP, temp);
-        db.update(TABLE_NAME_INCOME, cVal, "ID = ? ", new String[]{id});//Convenience method for updating rows in the database.
+        cVal.put(COL_TEMP_ID, id);
+        cVal.put(COL_TEMP_CURDATA, temp);
+        cVal.put(COL_TEMP_NAME, name);
+        db.update(TABLE_NAME_TEMPORARY, cVal, "ID = ? ", new String[]{id});//Convenience method for updating rows in the database.
         return true;
     }
 

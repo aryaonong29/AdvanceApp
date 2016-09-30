@@ -23,7 +23,7 @@
             android:noHistory="true"/>
         <activity android:name=".activity.SynchronizeActivity"
             android:noHistory="true"/>
-        <activity android:name=".CardOverviewFragment"/>
+        <activity android:name=".activity.CardFragmentExpenses"/>
     </application>
 
 </manifest>

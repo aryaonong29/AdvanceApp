@@ -26,6 +26,8 @@ public class TransactionSerializedExpenses {
         private int idExpense;
         private String descriptionExpense;
         private String amountExpense;
+        private String dataExpenses;
+
 
         public int getIdExpense() {
             return idExpense;
@@ -50,5 +52,13 @@ public class TransactionSerializedExpenses {
         public void setAmountExpense(String amountExpense) {
             this.amountExpense = amountExpense;
         }
+        public String getDataExpenses() {
+            return dataExpenses;
+        }
+
+        public void setDataExpenses(String dataExpenses) {
+            this.dataExpenses = dataExpenses;
+        }
+
     }
 }

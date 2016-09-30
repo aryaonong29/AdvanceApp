@@ -8,8 +8,10 @@ public class TransactionDataIncome {
     private int idIncome;
     public String descriptionIncome;
     public String amountIncome;
+    public String dateIncome;
 
-    public TransactionDataIncome(String descriptionIncome, String amountIncome) {
+    public TransactionDataIncome(int id,String descriptionIncome, String amountIncome) {
+        this.idIncome = idIncome;
         this.descriptionIncome = descriptionIncome;
         this.amountIncome = amountIncome;
     }
@@ -39,6 +41,12 @@ public class TransactionDataIncome {
         this.amountIncome = amountIncome;
     }
 
+    public String getDateIncome() {
+        return dateIncome;
+    }
 
+    public void setDateIncome(String dateIncome) {
+        this.dateIncome = dateIncome;
+    }
 
 }

@@ -131,6 +131,8 @@ public class DashboardActivity extends BaseActivity {
                     String getAmoIncome = cIncome.getString(cIncome.getColumnIndex("AMOUNT"));
                     amoIncome.setText(getAmoIncome);
 
+
+
                     Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate);
                     btnUpdate.setOnClickListener(new View.OnClickListener() {
                         @Override

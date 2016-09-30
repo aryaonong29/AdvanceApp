@@ -25,6 +25,9 @@ public class TransactionSerializedIncome {
         private int idIncome;
         private String descriptionIncome;
         private String amountIncome;
+        private String dateIncome;
+
+
 
         public int getIdIncome() {
             return idIncome;
@@ -48,6 +51,14 @@ public class TransactionSerializedIncome {
 
         public void setAmountIncome(String amountIncome) {
             this.amountIncome = amountIncome;
+        }
+
+        public String getDateIncome() {
+            return dateIncome;
+        }
+
+        public void setDateIncome(String dateIncome) {
+            this.dateIncome = dateIncome;
         }
     }
 

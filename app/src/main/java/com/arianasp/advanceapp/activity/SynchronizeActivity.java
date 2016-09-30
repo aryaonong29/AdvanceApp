@@ -89,11 +89,6 @@ public class SynchronizeActivity extends BaseActivity {
                                         System.getProperty("line.separator")
                         );
                         break;
-
-//                    }else{
-////                      postApiIncome();
-//                        break;
-//                    }
                 }
             }
 
@@ -105,12 +100,16 @@ public class SynchronizeActivity extends BaseActivity {
         });
     }
 
+    public void dialogProgress(){
+        if(dialogReg.isShowing()) dialogReg.dismiss();
+    }
+
     private void postApiIncome() throws JSONException{
         int count = 0;
 
         dialogReg = new ProgressDialog(SynchronizeActivity.this);
-        dialogReg.setTitle("Syncronize dulu bro");
-        dialogReg.setMessage("Loading ...");
+        dialogReg.setTitle("Syncronize heula bro");
+        dialogReg.setMessage("Antosan Sakedap nya bray ...");
         dialogReg.setProgress(0);
 
         dialogReg.show();
@@ -123,164 +122,65 @@ public class SynchronizeActivity extends BaseActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
+                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         final TransactionAPIIncome postApiIncome = retrofit.create(TransactionAPIIncome.class);
-
-
-
-        // // implement interface for get all user
-        TransactionDataIncome dataPostIncome = new TransactionDataIncome(descIncome,amountIncome);
-        Gson gsonPAI = new Gson();
-        String json = gsonPAI.toJson(dataPostIncome);
-        Log.e("CEKIDOT", json);
-
-        TransactionDataIncome curData = new TransactionDataIncome(curInc.getString(1), curInc.getString(2));
-
-        Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
-        callPI.enqueue(new Callback<TransactionDataIncome>() {
-            @Override
-            public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
-                int status = response.code();
-                for(curInc.moveToFirst(); ! curInc.isAfterLast(); curInc.moveToNext()) {
+        for(curInc.moveToFirst(); !curInc.isAfterLast(); curInc.moveToNext()){
+            TransactionDataIncome curData = new TransactionDataIncome(curInc.getInt(0), curInc.getString(1), curInc.getString(2));
+            Gson gsonPAI = new Gson();
+            String json = gsonPAI.toJson(curData);
+            Log.e("CEKIDOT", json);
+            Call<TransactionDataIncome> callPI = postApiIncome.saveIncomeItem(curData);
+            callPI.enqueue(new Callback<TransactionDataIncome>() {
+                @Override
+                public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
+                    int status = response.code();
                     tvResponses.setText(String.valueOf(curInc.getPosition()));
+                    tvStatus.setText(String.valueOf(response.body()));
+
                     DataBaseSQLite myDb = new DataBaseSQLite(SynchronizeActivity.this);
-                    myDb.updateIncomeTemp(String.valueOf(curInc.getInt(0)), tvResponses.getText().toString());
-                    Toast.makeText(SynchronizeActivity.this, String.valueOf(curInc.getPosition()), Toast.LENGTH_SHORT).show();
-                }
-//                tvResponses.setText(String.valueOf(status)+ " : last income sync : " + String.valueOf(curInc.getPosition()));
-                if (status==201) {
-                    Toast.makeText(SynchronizeActivity.this, "Sync Success", Toast.LENGTH_SHORT).show();
-                } else if (status==400) {
-                    Toast.makeText(SynchronizeActivity.this, "Sync Failed", Toast.LENGTH_SHORT).show();
-                }
-                if (dialogReg.isShowing()) dialogReg.dismiss();
+                    Log.e("CEK GET INT = ",String.valueOf(curInc.getInt(0)));
+                    Log.e("CEK POSITION CURSOS",String.valueOf(curInc.getPosition()));
+                    myDb.updateIncomeTemp(String.valueOf(String.valueOf(curInc.getInt(0))), String.valueOf(curInc.getPosition()));
+                    Toast.makeText(SynchronizeActivity.this, "Alhamdulillah", Toast.LENGTH_SHORT).show();
 
-            }
-
-            @Override
-            public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
-                if(dialogReg.isShowing()){
-                    dialogReg.dismiss();
                 }
-                AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
 
-                alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
-                        .setPositiveButton("Skip", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(SynchronizeActivity.this, "Skip.", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    postApiIncome();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                @Override
+                public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
+                    if(dialogReg.isShowing()){
+                        dialogReg.dismiss();
+                    }
+                    AlertDialog.Builder alert = new AlertDialog.Builder(SynchronizeActivity.this);
+
+                    alert.setCancelable(false).setTitle("Synchronize").setMessage("fails synchronize")
+                            .setPositiveButton("Sekip", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(SynchronizeActivity.this, "Sekip.", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                    return;
                                 }
-                                dialog.dismiss();
-                                Toast.makeText(SynchronizeActivity.this, "Internet Mati Coy", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                alert.show();
+                            })
+                            .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        postApiIncome();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    dialog.dismiss();
+                                    Toast.makeText(SynchronizeActivity.this, "Internetna Maot Bray", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    alert.show();
 
-            }
-        });
-
-
-
-
-
+                }
+            });
+        }
 
     }
-
-//    private void getApiExpenses(){
-//        Gson gson = new GsonBuilder()
-//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-//                .create();
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build();
-//
-//        final TransactionAPIIncome user_apiIncome = retrofit.create(TransactionAPIIncome.class);
-//
-//        // // implement interface for get all user
-//        Call<TransactionSerializedIncome> call = user_apiIncome.getExpensesItem();
-//        call.enqueue(new Callback<TransactionSerializedIncome>() {
-//
-//            @Override
-//            public void onResponse(Call<TransactionSerializedIncome> call, Response<TransactionSerializedIncome> response) {
-//                int status = response.code();
-//                tvStatus.setText("");
-//                tvStatus.setText(String.valueOf(status));
-//                for(TransactionSerializedIncome.ExpenseItem expenseItem : response.body().getExpensesItem()){
-//                    if(expenseItem.getDescriptionExpense().toString().equals(tvStuff.getText().toString())){
-//                        Toast.makeText(SynchronizeActivity.this, "DATA EXP NA AYA BRO", Toast.LENGTH_LONG).show();
-//
-//
-//                        break;
-//                    }else{
-////                        postApiExpenses();
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TransactionSerializedIncome> call, Throwable t) {
-//                dialogReg.dismiss();
-//                tvStatus.setText(String.valueOf(t));
-//            }
-//
-//
-//
-//        });
-//    }
-
-
-//
-//    private void postApiExpenses(){
-//        Gson gson = new GsonBuilder()
-//                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-//                .create();
-//
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .build();
-//
-//        final TransactionAPIIncome postApiExpenses = retrofit.create(TransactionAPIIncome.class);
-//
-//        // // implement interface for get all user
-//
-//        TransactionDataIncome dataPostExpenses = new TransactionDataIncome(descIncome,descExpenses,amountIncome,amountExpenses);
-//        Gson gsonPAI = new Gson();
-//        String json2 = gsonPAI.toJson(dataPostExpenses);
-//        Log.e("CEKIDOT", json2);
-//        Call<TransactionDataIncome> callPE = postApiExpenses.saveExpensesItem(dataPostExpenses);
-//
-//        callPE.enqueue(new Callback<TransactionDataIncome>() {
-//            @Override
-//            public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
-//                int status = response.code();
-//                dialogReg.dismiss();
-//                tvStatus.setText("");
-//                tvStatus.setText(String.valueOf(status));
-//                Toast.makeText(SynchronizeActivity.this, "POST Expenses berhasil", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
-//                tvStatus.setText(String.valueOf(t));
-//            }
-//        });
-//    }
 }

@@ -8,8 +8,10 @@ public class TransactionDataExpenses {
     private int idExpenses;
     public String descriptionExpenses;
     public String amountExpenses;
+    public String dateExpenses;
 
-    public TransactionDataExpenses(String descriptionExpenses, String amountExpenses) {
+    public TransactionDataExpenses(int idExpenses,String descriptionExpenses, String amountExpenses) {
+        this.idExpenses = idExpenses;
         this.descriptionExpenses = descriptionExpenses;
         this.amountExpenses = amountExpenses;
     }
@@ -38,7 +40,13 @@ public class TransactionDataExpenses {
         this.amountExpenses = amountExpenses;
     }
 
+    public String getDateExpenses() {
+        return dateExpenses;
+    }
 
+    public void setDateExpenses(String dateExpenses) {
+        this.dateExpenses = dateExpenses;
+    }
 
 
 }

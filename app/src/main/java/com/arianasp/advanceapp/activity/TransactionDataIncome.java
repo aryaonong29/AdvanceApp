@@ -6,8 +6,9 @@ package com.arianasp.advanceapp.activity;
 
 public class TransactionDataIncome {
     private int idIncome;
-    public String descriptionIncome;
-    public String amountIncome;
+    private String descriptionIncome;
+    private String amountIncome;
+    private String date;
 
     public TransactionDataIncome(String descriptionIncome, String amountIncome) {
         this.descriptionIncome = descriptionIncome;

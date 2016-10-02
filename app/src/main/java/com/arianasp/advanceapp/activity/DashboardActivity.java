@@ -18,6 +18,10 @@ import android.widget.Toast;
 import com.arianasp.advanceapp.R;
 import com.arianasp.advanceapp.database.DataBaseSQLite;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DashboardActivity extends BaseActivity {
     RecyclerView recyclerViewIncome;
     RecyclerView recyclerViewExpenses;
@@ -29,7 +33,7 @@ public class DashboardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        this.setTitle("Dasboard");
+        this.setTitle("Dashboard");
 
 
         final DataBaseSQLite db = new DataBaseSQLite(this);// inisialisasi database di sqlite
@@ -136,7 +140,7 @@ public class DashboardActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
-                            myDB1.updateIncome(String.valueOf(idxIncome), descIncome.getText().toString(), amoIncome.getText().toString());
+                            myDB1.updateIncome(String.valueOf(idxIncome), descIncome.getText().toString(), amoIncome.getText().toString(),getDateTime());
                             Toast.makeText(DashboardActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
@@ -239,7 +243,7 @@ public class DashboardActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             DataBaseSQLite myDB1 = new DataBaseSQLite(DashboardActivity.this);
-                            myDB1.updateExpense(String.valueOf(idxExpenses), descExpense.getText().toString(), amoExpenses.getText().toString());
+                            myDB1.updateExpense(String.valueOf(idxExpenses), descExpense.getText().toString(), amoExpenses.getText().toString(),getDateTime());
                             Toast.makeText(DashboardActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
@@ -279,6 +283,13 @@ public class DashboardActivity extends BaseActivity {
         public int getItemCount() {
             return dataE.length;
         }
+    }
+
+    public String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 

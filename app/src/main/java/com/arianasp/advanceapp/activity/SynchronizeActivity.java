@@ -51,7 +51,7 @@ public class SynchronizeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    postApiIncome();
+                    getApiIncome();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -59,7 +59,7 @@ public class SynchronizeActivity extends BaseActivity {
         });
     }
 
-    private void getApiIncome(){
+    private void getApiIncome ()throws JSONException{
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
@@ -128,9 +128,6 @@ public class SynchronizeActivity extends BaseActivity {
                 .build();
 
         final TransactionAPIIncome postApiIncome = retrofit.create(TransactionAPIIncome.class);
-
-
-
         // // implement interface for get all user
         TransactionDataIncome dataPostIncome = new TransactionDataIncome(descIncome,amountIncome);
         Gson gsonPAI = new Gson();

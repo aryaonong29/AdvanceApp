@@ -1,4 +1,4 @@
-package com.arianasp.advanceapp.activity;
+package com.arianasp.advanceapp.pojo;
 
 /**
  * Created by mycomputer on 29/09/16.

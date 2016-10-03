@@ -21,14 +21,10 @@ public class TransactionActivity extends BaseActivity {
 //        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 //        final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
 //        viewPager.setAdapter(adapter);
-//        // A ViewPager.OnPageChangeListener class which contains the necessary calls back to the provided TabLayout so that the tab position
-//        // is kept in sync.
-//        // This class stores the provided TabLayout weakly, meaning that you can use addOnPageChangeListener(OnPageChangeListener)
-//        // without removing the listener and not cause a leak.
+
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 //
-//        // You should set a listener via setOnTabSelectedListener(OnTabSelectedListener)
-//        // to be notified when any tab's selection state has been changed.
+
 //        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {

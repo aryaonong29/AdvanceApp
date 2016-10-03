@@ -1,4 +1,7 @@
-package com.arianasp.advanceapp.activity;
+package com.arianasp.advanceapp.interfaceapi;
+
+import com.arianasp.advanceapp.pojo.TransactionSerializedIncome;
+import com.arianasp.advanceapp.pojo.TransactionDataIncome;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

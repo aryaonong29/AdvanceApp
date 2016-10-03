@@ -1,4 +1,4 @@
-package com.arianasp.advanceapp.activity;
+package com.arianasp.advanceapp.pojo;
 
 import com.google.gson.annotations.SerializedName;
 

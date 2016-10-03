@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_place"
-        android:name="com.arianasp.advanceapp.CardOverviewFragment"
+        android:name="com.arianasp.advanceapp.fragment.CardOverviewFragment"
         tools:layout="@layout/fragment_overview"></fragment>
 
 </RelativeLayout>

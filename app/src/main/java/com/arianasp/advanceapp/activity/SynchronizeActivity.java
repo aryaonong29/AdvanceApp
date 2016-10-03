@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.arianasp.advanceapp.R;
 import com.arianasp.advanceapp.database.DataBaseSQLite;
+import com.arianasp.advanceapp.interfaceapi.TransactionAPIIncome;
+import com.arianasp.advanceapp.pojo.TransactionDataIncome;
+import com.arianasp.advanceapp.pojo.TransactionSerializedIncome;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

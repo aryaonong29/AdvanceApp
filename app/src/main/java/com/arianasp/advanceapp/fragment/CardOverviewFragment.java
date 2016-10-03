@@ -1,4 +1,4 @@
-package com.arianasp.advanceapp;
+package com.arianasp.advanceapp.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.arianasp.advanceapp.R;
 import com.arianasp.advanceapp.database.DataBaseSQLite;
 
 import static com.arianasp.advanceapp.R.id.buttonAddExpenses;
@@ -33,7 +34,6 @@ public class CardOverviewFragment extends Fragment implements View.OnClickListen
         buttonAddInc.setOnClickListener(this);
         buttonAddExp = (Button)view.findViewById(buttonAddExpenses);
         buttonAddExp.setOnClickListener(this);
-
 ;       return view;
     }
 
@@ -50,6 +50,9 @@ public class CardOverviewFragment extends Fragment implements View.OnClickListen
                     }
                     else if(amountIncome.length()==0){
                         Toast.makeText(getActivity(),"amount tong dikosongkeun bray", Toast.LENGTH_LONG).show();
+                    }
+                    else if(descIncome.length() ==0 || amountIncome.length() ==0){
+                        Toast.makeText(getActivity(),"isi heula desc sareng amount na kasep",Toast.LENGTH_LONG).show();
                     }
                     boolean resultInc = db.saveDataIncome(descIncome, amountIncome);
                     if (resultInc) {

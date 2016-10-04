@@ -13,6 +13,8 @@
         android:layout_height="35dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"/>
 
 </android.support.v7.widget.CardView>

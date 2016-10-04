@@ -42,7 +42,6 @@ public class CardOverviewFragment extends Fragment implements View.OnClickListen
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.buttonAddIncome:
-
                     descIncome = tvDesription.getText().toString();
                     amountIncome = tvAmount.getText().toString();
                     if(descIncome.length()==0){

@@ -28,84 +28,85 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.arianasp.advanceapp.R.id.tvAmount;
+
 public class SynchronizeActivity extends BaseActivity {
-    TextView tvStatus, tvResponses;
-    EditText tvDesription,tvAmount,tvStuff,tvPrice;
-    DataBaseSQLite db;
+    EditText etDesc,etAmount;
+    TextView tvRespond,tvStatus;
     Button btnSync;
-    ProgressDialog dialogReg;
-    Cursor curInc, curExp;
-    String descIncome, descExpenses, amountIncome, amountExpenses;
+    DataBaseSQLite db;
+    TransactionDataIncome tid;
+    Cursor curInc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_synchronize);
+        etDesc = (EditText) findViewById(R.id.tvDescription);
+        etAmount = (EditText) findViewById(tvAmount);
+        tvRespond = (TextView) findViewById(R.id.tvLastData);
         tvStatus = (TextView) findViewById(R.id.tvStatus);
-        tvResponses = (TextView) findViewById(R.id.tvLastData);
-        tvDesription = (EditText)findViewById(R.id.tvDescription);
-        tvAmount = (EditText)findViewById(R.id.tvAmount);
-        tvStuff = (EditText)findViewById(R.id.tvstuff);
-        tvPrice = (EditText)findViewById(R.id.tvprice);
         db = new DataBaseSQLite(this);
+//        tid = new TransactionDataIncome();
         curInc = db.addIncome();
-        curExp = db.addExpenses();
+        db = new DataBaseSQLite(this);
         btnSync = (Button) findViewById(R.id.btnSync);
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
+                try{
                     getApiIncome();
-                } catch (JSONException e) {
+                }
+                catch (JSONException e){
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    private void getApiIncome ()throws JSONException{
+    private void getApiIncome() throws JSONException{
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/")
+                .baseUrl("https://private-b22195-advanceapp1.apiary-mock.com/expenseTrans")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        TransactionAPIIncome user_apiIncome = retrofit.create(TransactionAPIIncome.class);
+        final TransactionAPIIncome getApiIncome = retrofit.create(TransactionAPIIncome.class);
+        if(curInc.getCount() > 0){
+            curInc.moveToFirst();
+            do{
+                final Integer id = new Integer(curInc.getInt(0));
+                Call<TransactionDataIncome> call = getApiIncome.saveIncomeItem(new TransactionDataIncome(tid.getDescriptionIncome(),tid.getAmountIncome()));
+                call.enqueue(new Callback<TransactionDataIncome>() {
+                    @Override
+                    public void onResponse(Call<TransactionDataIncome> call, Response<TransactionDataIncome> response) {
+                        System.out.println("Response status code: " + response.code());
+                        int cekId = response.body().(id);
+                        int curPos = curInc.getPosition();
 
-        // // implement interface for get all user
-        Call<TransactionSerializedIncome> call = user_apiIncome.getIncomeItem();
-        call.enqueue(new Callback<TransactionSerializedIncome>() {
+                        if(cekId != id ){
+                            postApiIncome(pos);
+                        }
+                        else if(cekId == id){
+                            putApiIncome(pos);
+                        }
+                    }
 
-            @Override
-            public void onResponse(Call<TransactionSerializedIncome> call, Response<TransactionSerializedIncome> response) {
-                int status = response.code();
-                tvStatus.setText(String.valueOf(status));
-                for(TransactionSerializedIncome.IncomeItem incomeItem : response.body().getIncomeItem()){
-                        tvResponses.append(
-                                "Id = " + String.valueOf(incomeItem.getIdIncome()) +
-                                        System.getProperty("line.separator") +
-                                        "Description Income = " + incomeItem.getDescriptionIncome() +
-                                        System.getProperty("line.separator") +
-                                        "Amount Income = " + incomeItem.getAmountIncome() +
-                                        System.getProperty("line.separator")
-                        );
-                        break;
+                    @Override
+                    public void onFailure(Call<TransactionDataIncome> call, Throwable t) {
+                        tvRespond.setText(String.valueOf(t));
+                    }
+                });
+                curInc.moveToNext();
+            }while(!curInc.isLast());
+        }
+        else{
+            Toast.makeText(SynchronizeActivity.this,"nothing to sync",Toast.LENGTH_LONG).show();
+        }
 
-//                    }else{
-////                      postApiIncome();
-//                        break;
-//                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TransactionSerializedIncome> call, Throwable t) {
-                dialogReg.dismiss();
-                tvStatus.setText(String.valueOf(t));
-            }
-        });
     }
 
     private void putApiIncome() throws JSONException{
